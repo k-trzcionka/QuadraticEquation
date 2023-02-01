@@ -18,5 +18,19 @@ namespace QuadraticEquation.Tests
             Assert.Equal(expectedX1, x1);
             Assert.Equal(expectedX2, x2);
         }
+
+        [Theory]
+        [InlineData(1, 2, 10)]
+        [InlineData(2, 3, 5)]
+        [InlineData(5, 4, 2)]
+        public void CalculateRoots_NegativeTest(double a, double b, double c)
+        {
+            // Act
+            double x1, x2;
+            int numberOfRoots = Program.CalculateRoots(a, b, c, out x1, out x2);
+
+            // Assert
+            Assert.Equal(0, numberOfRoots);
+        }
     }
 }
