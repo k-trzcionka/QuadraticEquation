@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QuadraticEquation
+﻿namespace QuadraticEquation
 {
     public class Program
     {
@@ -16,28 +14,49 @@ namespace QuadraticEquation
 
             double delta = b * b - 4 * a * c;
             double x1, x2;
+            int numberOfRoots = CalculateRoots(a,b,c, out x1, out x2);
 
-            if (delta > 0)
+            switch (numberOfRoots)
             {
-                x1 = (-b + Math.Sqrt(delta)) / (2 * a);
-                x2 = (-b - Math.Sqrt(delta)) / (2 * a);
-                Console.WriteLine("The roots are real and different.");
-                Console.WriteLine("x1 = {0}, x2 = {1}", x1, x2);
+                case 0:
+                    Console.WriteLine("The equation has no real roots.");
+                    break;
+                case 1:
+                    Console.WriteLine("The equation has 1 real root: " + x1);
+                    break;
+                case 2:
+                    Console.WriteLine("The equation has 2 real roots: " + x1 + " and " + x2);
+                    break;
             }
-            else if (delta == 0)
-            {
-                x1 = -b / (2 * a);
-                Console.WriteLine("The roots are real and same.");
-                Console.WriteLine("x1 = x2 = {0}", x1);
-            }
-            else
-            {
-                Console.WriteLine("The roots are complex and different.");
-            }
+
+
 
             Console.ReadKey();
 
 
+
+        }
+        public static int CalculateRoots(double a, double b, double c, out double x1, out double x2)
+        {
+            double discriminant = b * b - 4 * a * c;
+            if (discriminant < 0)
+            {
+                x1 = 0;
+                x2 = 0;
+                return 0;
+            }
+            else if (discriminant == 0)
+            {
+                x1 = -b / (2 * a);
+                x2 = x1;
+                return 1;
+            }
+            else
+            {
+                x1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
+                x2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
+                return 2;
+            }
         }
     }
 }
